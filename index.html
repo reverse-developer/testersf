@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ThreeJS Starter</title>
+    <style>
+        body{
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="Canvas"></canvas>
+    <script src="three.js"></script>
+
+    <script>
+        var light, light1, camera, renderer, scene, geometry, material, mesh;
+
+        //renderer
+        renderer = new THREE.WebGLRenderer({canvas:
+        document.getElementById('Canvas'), antialias: true});
+        renderer.setClearColor(0x2d2d2d);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        //camera
+        camera = new THREE.PerspectiveCamera(35, window.innerHeight/ window.innerWidth, 0.1, 3000);
+
+        //scene
+        scene= new THREE.Scene();
+
+        //lights
+        light = new THREE.AmbientLight(0xffffff, 0.5);
+        light = new THREE.PointLight(0xffffff, 0.5);
+        scene.add(light,light1);
+
+        //object
+        geometry = new THREE.BoxGeometry(100, 100, 100);
+        material = new THREE.MeshNormalMaterial();
+        mesh = new THREE.Mesh( geometry, material );
+        mesh.position.set(0, 0, -300)
+
+        scene.add(mesh);
+
+        //renderer loop
+        requestAnimationFrame(render);
+
+        function render() {
+            mesh.rotation.x += 0.01;
+            mesh.rotation.y += 0.01;
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+
+    </script>
+</body>
+</html>
